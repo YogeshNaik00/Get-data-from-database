@@ -1,0 +1,70 @@
+<html>
+    <head>
+        <title></title>
+        <style>
+          .resultsheet{
+            margin-left: 50px;
+          }
+          table{
+            color: black;
+          }
+          td{
+            text-align: center;
+          }
+        </style>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+        <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>    
+    </head>
+    <body>
+  <div class="resultsheet">
+        <fieldset style="width:600px">
+          <legend><b>Your Result:</b></legend>
+          <table border="1">
+              <tr><td><b>USN</b></td><td><%=result.USN%></td></tr>
+              <tr><td><b>NAME</b></td><td><%=result.Name%></td></tr>
+              <tr><td><b>KANNADA</b></td><td><%=result.Kannada%></td></tr>
+              <tr><td><b>ENGLISH</b></td><td><%=result.English%></td></tr>
+              <tr><td><b>HINDI</b></td><td><%=result.Hindi%></td></tr>
+              <tr><td><b>SCIENCE</b></td><td><%=result.Science%></td></tr>
+              <tr><td><b>MATHS</b></td><td><%=result.Maths%></td></tr>
+              <tr><td><b>SOCIAL</b></td><td><%=result.Social%></td></tr>        
+          </table>
+      </fieldset>
+          <h5 id='demo3'></h5>
+          <h5 id='demo4'></h5>
+          <h5 id="demo5">Result:</h5>
+          <button onclick="window.print()">Print</button>
+  </div>
+          <script>
+var res = '<%- JSON.stringify(result) %>';
+var obj = JSON.parse(res);
+var totalmarks= (obj.Kannada + obj.English + obj.Hindi + obj.Science + obj.Maths + obj.Social);
+var avg= (totalmarks/600)*100;
+var result='Result: ';
+            var text = "";
+            var x;
+            for (x in res) 
+            {
+            text += res[x] + " ";
+            }
+  document.getElementById("demo3").innerText ='Total marks: '+totalmarks;
+  document.getElementById("demo4").innerText ='Total Percentage: '+avg.toFixed(2);
+
+  if(obj.Kannada<35 || obj.English<35 || obj.Hindi<35 || obj.Science<35 || obj.Maths<35 || obj.Social < 35)
+  {
+    document.getElementById("demo5").innerText =result+'FAIL';
+  }
+   else if(avg < 60){
+    document.getElementById("demo5").innerText =result+'SECOND CLASS';
+  }
+  else if(avg > 60 && avg <= 75){
+    document.getElementById("demo5").innerText =result+'FIRST CLASS';
+  }
+  else if(avg > 75){
+    document.getElementById("demo5").innerText =result+'FIRST CLASS WITH DISTINCTION';
+  }
+          </script>
+    </body>
+</html>
